@@ -16,11 +16,11 @@ class _MainPageState extends State<MainPage> {
     const paddingVal = 20.0;
     return Scaffold(
       body: Padding(
-        padding: EdgeInsets.only(top: 40.0, bottom: paddingVal, right: paddingVal, left: paddingVal),
+        padding: const EdgeInsets.only(top: 45.0, bottom: paddingVal, right: paddingVal, left: paddingVal),
         child: Column(
           children: <Widget>[
             _buildTop(),
-            _buildEmptySpace(),
+            _buildEmptyHeightSpace(),
             Text(
               '모든 알람이 꺼진\n상태입니다',
               style: TextStyle(
@@ -30,18 +30,21 @@ class _MainPageState extends State<MainPage> {
               ),
               textAlign: TextAlign.center,
             ),
-            _buildEmptySpace(),
+            _buildEmptyHeightSpace(),
 
             _buildAlarm(),
-            _buildEmptySpace(),
+            _buildEmptyHeightSpace(),
             _buildAlarm(),
-            _buildEmptySpace(),
+            _buildEmptyHeightSpace(),
+            _buildAlarm(),
+            _buildEmptyHeightSpace(),
             _buildAlarm(),
 
 
           ],
         ),
       ),
+
       floatingActionButton: SpeedDial( //Speed dial menu
         tooltip: '알람 추가',
         icon: Icons.add, //icon on Floating action button
@@ -101,24 +104,47 @@ class _MainPageState extends State<MainPage> {
     );
   }
 
-  Widget _buildEmptySpace() {
+  Widget _buildEmptyHeightSpace() {
     return const SizedBox(
       height: 35.0,
+    );
+  }
+
+  Widget _buildEmptyWidthSpace() {
+    return const SizedBox(
+      width: 20.0,
     );
   }
 
   // Alarm Info 시작
   // ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★★
   Widget _buildAlarm() {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          _buildAlarmInfo_time(),
-          _buildAlarmLabel(),
-          _buildAlarmInfo_day(),
-        ],
-      ),
+    return Row(
+      children: <Widget>[
+        _buildAlarmDeco(),
+        _buildEmptyWidthSpace(),
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            _buildAlarmInfo_time(),
+            _buildAlarmLabel(),
+            _buildAlarmInfo_day(),
+          ],
+        ),
+        _buildEmptyWidthSpace(),
+        _buildAlarmSwitch(),
+      ],
+    );
+  }
+
+  Widget _buildAlarmDeco() {
+    return Column(
+      children: const <Widget>[
+        Text('⦁'),
+        Text('⋮'),
+        Text('⋮'),
+        Text('⋮'),
+      ],
     );
   }
 
@@ -163,6 +189,21 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
       ).toList(),
+    );
+  }
+
+  Widget _buildAlarmSwitch() {
+    bool isSwitched = false;  // State<MainPage> 의 프로퍼티로 위치해야함
+    return Transform.scale(
+      scale: 1.5,
+      child: Switch(
+        value: isSwitched,
+        onChanged: (value) {
+          setState(() {
+            isSwitched = value;
+          });
+        },
+      ),
     );
   }
 
