@@ -53,7 +53,7 @@ class _MainPageState extends State<MainPage> {
         foregroundColor: Colors.white, //font color, icon color in button
         activeBackgroundColor: mainColor, //background color when menu is expanded
         activeForegroundColor: Colors.white,
-        buttonSize: 56.0, //button size
+        buttonSize: const Size(56.0, 56.0), //button size
         visible: true,  // ?
         closeManually: false, // ?
         curve: Curves.bounceIn, // ?
